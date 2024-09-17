@@ -7,8 +7,7 @@ COPY go.mod ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -o apiserver
-RUN ./apiserver -h
+RUN make && ./bin/apiserver -h
 
 FROM ubuntu:latest
 LABEL org.opencontainers.image.source="https://github.com/tcuthbert/apiserver"
@@ -22,7 +21,7 @@ RUN groupadd -g "${GID}" apiserver \
   && useradd --home-dir /app --create-home -u "${UID}" -g "${GID}" apiserver
 
 WORKDIR /app
-COPY --from=builder /app/apiserver .
+COPY --from=builder /app/bin/apiserver .
 
 EXPOSE 5000
 USER apiserver

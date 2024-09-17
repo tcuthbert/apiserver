@@ -3,10 +3,10 @@ kind: Kustomization
 commonLabels:
   app: apiserver
 images:
-- name: apiserver
-  newName: ghcr.io/tcuthbert/apiserver
-  newTag: 0.1.0
+  - name: apiserver
+    newName: ghcr.io/tcuthbert/apiserver
+    newTag: 0.1.0
 resources:
-- deployment.yaml
-- service.yaml
-- ingress.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
