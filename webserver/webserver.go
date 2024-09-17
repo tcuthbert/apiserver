@@ -216,7 +216,9 @@ func newWebserver(listenAddr *string, apiURL string, logger *log.Logger) *http.S
 
 	router.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
+		if _, err := w.Write([]byte("ok")); err != nil {
+			logger.Printf("io error writing response: %v", err)
+		}
 	})
 
 	// TODO: use mdn recommended timeout values

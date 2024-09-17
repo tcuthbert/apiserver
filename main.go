@@ -9,9 +9,6 @@ import (
 )
 
 var (
-	symbol string
-	nDays  int
-
 	apiBaseURL = "https://api.github.com/"
 	listenAddr = ":5000"
 )

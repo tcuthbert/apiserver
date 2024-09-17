@@ -3,5 +3,5 @@ package apiresponse
 type Repos []Repo
 
 type Repo struct {
-    Url string `json:url`
+    Url string `json:"url"`
 }
