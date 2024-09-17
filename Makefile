@@ -51,6 +51,10 @@ $(GOVULNCHECK):
 vulncheck: $(GOVULNCHECK)
 	$(GOVULNCHECK) ./...
 
+.PHONY: test
+test:
+	@echo [test] NOT IMPLEMENTED
+
 build:
 	go build $(LDFLAGS) -o $(GOBIN)/$(BINARY_NAME)
 
@@ -59,10 +63,9 @@ release: build
 	version="`$(semver) next --strip-prefix`" yq eval '(.images[] | select(.name == "apiserver") | .newTag) |= strenv(version)' -i kubernetes/kustomization.yaml
 	git add kubernetes/kustomization.yaml && \
 		git commit -S -m'bump: deployment' kubernetes/kustomization.yaml
-	git tag -f `$(semver) next`
-	git push origin --tags --force $(BRANCH)
-	$(MAKE) argo-sync
-	$(MAKE) argo-wait
+	git tag -f `$(semver) next` && \
+		git push origin --tags --force $(BRANCH)
+	$(MAKE) argo-sync argo-wait
 
 .PHONY: argo-create
 argo-create:
@@ -76,3 +79,7 @@ argo-sync:
 argo-wait:
 	argocd app wait $(BINARY_NAME)
 
+.PHONY: clean
+clean:
+	go clean
+	rm -fr $(PROJECT_ROOT)/bin || true
