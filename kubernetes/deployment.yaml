@@ -14,7 +14,8 @@ spec:
         app: apiserver
     spec:
       containers:
-      - image: ghcr.io/tcuthbert/apiserver:main
-        name: apiserver
+      - name: apiserver
+        image: apiserver
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
