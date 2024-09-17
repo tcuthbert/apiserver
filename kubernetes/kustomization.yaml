@@ -5,7 +5,7 @@ commonLabels:
 images:
   - name: apiserver
     newName: ghcr.io/tcuthbert/apiserver
-    newTag: 0.2.0
+    newTag: 0.2.1
 resources:
   - deployment.yaml
   - service.yaml
