@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: apiserver
+  namespace: default
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`apiserver.s.m0t.au`)
+      services:
+        - name: apiserver
+          port: 5000
+  tls:
+    certResolver: default
